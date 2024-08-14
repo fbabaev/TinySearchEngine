@@ -1,9 +1,9 @@
 /*
  * index.c - CS50 'common' directory
  *
- * The 'index' module provides the functionality to create, modify, save, and load an index that maps from words to document IDs and counts. This index is used by the 'indexer' and 'querier' modules to facilitate efficient searching of the crawled webpages.
+ * This module implements an index data structure that maps words to document IDs and their corresponding occurrence counts. The index is essential for efficient search operations in the 'indexer' and 'querier' modules, facilitating quick lookups of words across crawled webpages.
  *
- * Firdavskhon Babaev
+ * Author: Firdavskhon Babaev
  * Date: May 5, 2024
  */
 
@@ -13,15 +13,15 @@
 #include "hashtable.h"
 #include "counters.h"
 
+// Define the index type as a hashtable
 typedef hashtable_t index_t;
 
-// Create a new index
+// Create a new index with a specified number of slots
 index_t* index_new(const int num_slots) {
     return hashtable_new(num_slots);
-    
 }
 
-//add index
+// Add a document ID to the index under the given word
 void index_add(index_t *index, const char *word, int docID) {
     counters_t *counters = hashtable_find(index, word);
     if (counters == NULL) {
@@ -31,26 +31,24 @@ void index_add(index_t *index, const char *word, int docID) {
     counters_add(counters, docID);
 }
 
-// Function to delete a counter
+// Helper function to delete a counters data structure
 void counters_delete_fn(void *item) {
     counters_t *counters = item;
     counters_delete(counters);
-    
 }
 
-// Delete the index
+// Delete the entire index, freeing all associated memory
 void index_delete(index_t* index) {
     hashtable_delete(index, counters_delete_fn);
 }
 
-
-// Save an item in the counters
+// Save a single item in the counters data structure to a file
 void counters_item_save(void* arg, const int key, const int item) {
     FILE* fp = arg;
     fprintf(fp, "%d %d ", key, item);
 }
 
-// Save an item in the index
+// Save a single item in the index to a file
 void index_item_save(void* arg, const char* key, void* item) {
     FILE* fp = arg;
     counters_t* counters = item;
@@ -60,34 +58,32 @@ void index_item_save(void* arg, const char* key, void* item) {
     fprintf(fp, "\n");
 }
 
-
-// Save the index to a file
+// Save the entire index to a file
 int index_save(FILE* fp, index_t* index) {
     if (fp == NULL || index == NULL) {
         return 1; 
     }
     hashtable_iterate(index, fp, index_item_save);
     return 0;
-    
 }
 
-// Load the index from a file
+// Load an index from a file, reconstructing it from the file's data
 index_t* index_load(FILE* fp) {
-  int size = file_numLines(fp);
-  index_t* newIndex = index_new(size);
-  char* word;
-    // Extract data from index file into index struct
-    while ((word = file_readWord(fp)) != NULL) {
-    counters_t* ctr = counters_new();
-    int docID, count;
+    int size = file_numLines(fp);
+    index_t* newIndex = index_new(size);
+    char* word;
 
-    //Extract (docID, count) pairs
-    while(fscanf(fp, "%d %d", &docID, &count) == 2) {
-        counters_set(ctr, docID, count);
-    }
-    hashtable_insert(newIndex, word, ctr);
-    free(word);
+    // Read words and their associated document ID counts from the file
+    while ((word = file_readWord(fp)) != NULL) {
+        counters_t* ctr = counters_new();
+        int docID, count;
+
+        // Read and set (docID, count) pairs in the counters
+        while (fscanf(fp, "%d %d", &docID, &count) == 2) {
+            counters_set(ctr, docID, count);
+        }
+        hashtable_insert(newIndex, word, ctr);
+        free(word);
     }
     return newIndex;
 }
-
