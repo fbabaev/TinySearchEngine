@@ -1,23 +1,19 @@
-# CS50 Tiny Search Engine (TSE) utility library
+# Tiny Search Engine (TSE) Utility Library
 
-These modules support the TSE project.  Feel free to drop in your implementation of the data-structure modules, but **do not change any of the other source files in this directory.**
+This collection of modules is designed to support the Tiny Search Engine (TSE) project. 
+## How to Use
 
-## Usage
+To compile `libcs50.a`, simply run `make`. 
 
-To build `libcs50.a`, run `make`. 
+To clean up the directory, run `make clean`.
 
-The starter kit includes a pre-built library, `libcs50-given.a`, in case you prefer to use our Lab3 solutions rather than your own.
-If you prefer our data-structure implementation over your own, update the Makefile rule for `$(LIB)`, as instructed by comments there.
+## Library Components
 
-To clean up, run `make clean`.
-
-## Overview
-
- * `bag` - the **bag** data structure from Lab 3
+ * `bag` - the **bag** data structure, as introduced in Lab 3
  * `counters` - the **counters** data structure from Lab 3
- * `file` - functions to read files (includes readLine)
- * `hashtable` - the **hashtable** data structure from Lab 3
- * `hash` - the Jenkins Hash function used by hashtable
- * `memory` - handy wrappers for malloc/free
+ * `file` - utility functions for file operations (including readLine)
+ * `hashtable` - the **hashtable** data structure covered in Lab 3
+ * `hash` - Jenkins Hash function for use with hashtable
+ * `memory` - convenient wrappers for malloc/free
  * `set` - the **set** data structure from Lab 3
  * `webpage` - functions to load and scan web pages
