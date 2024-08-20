@@ -1,0 +1,10 @@
+*.o
+/data/*
+/crawlData/*
+*.exe
+*.bin
+/indexer
+/indextest
+/test
+/test.copy
+indexer/indexer
