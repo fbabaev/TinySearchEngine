@@ -1,5 +1,5 @@
 /*
- * indexer.c - CS50 'indexer' module
+ * indexer.c
  *
  * The indexer scans through web pages previously stored by the crawler, constructs an index mapping words to document IDs and occurrence counts, and outputs this index to a specified file.
  *
