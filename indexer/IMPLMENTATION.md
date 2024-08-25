@@ -1,4 +1,4 @@
-### TSE Indexer
+# TSE Indexer
 #### Implementation Specification
 
 This document builds upon the Design Specification by detailing implementation-specific decisions for the CS50 TSE Indexer project. Our focus is on essential components such as data structures, control flow, function prototypes, error handling, and testing.
