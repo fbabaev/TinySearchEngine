@@ -1,6 +1,6 @@
 # Makefile
 #
-# Firdavskhon, May 2024
+# Firdavskhon Babaev, May 2024
 
 # Compiler options
 CC = gcc
