@@ -13,7 +13,7 @@
 
 int main(int argc, char *argv[]) {
     // Validate command line arguments
-    if (argc = 3) {
+    if (argc != 3) {
         fprintf(stderr, "Usage: %s oldIndexFilename newIndexFilename\n", argv[0]);
         return 1;
     }
